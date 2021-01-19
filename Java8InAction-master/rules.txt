@@ -1,0 +1,17 @@
+primary
+	consAssocType will be always null
+	file type can be physical, hybrid, electronic or disconnect( No digitized type in primary)
+	 	if primary -> physical or hybrid, consAssocType can be association or consolidation
+	 	if primary -> electronic, consAssocType will only have association
+	    if primary -> disconnect, consAssocType will only have disconnect
+	    
+	    
+	 Can we have disconnect send as seperate call, meaning only when the
+	 primary is disconnect, and not mix up with consolidation and assocations
+	 as i think doing both transactions of consolidating and un consolidationg
+	 in the same transaction will cause issue on our side.
+	 
+	    
+	    
+	    
+	 	
