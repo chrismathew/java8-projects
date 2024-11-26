@@ -1,0 +1,50 @@
+
+Check a certificate signing request (CSR)
+openssl req -text -noout -verify -in server.csr
+
+Check a private key
+openssl rsa -in server.key -check
+
+Check a public key
+openssl rsa -inform PEM -pubin -in pub.key -text -noout
+openssl pkey -inform PEM -pubin -in pub.key -text -noout
+
+Check a certificate
+openssl x509 -in server.crt -text -noout
+openssl x509 -in server.cer -text -noout
+
+Check a PKCS#12 file (.pfx or .p12)
+openssl pkcs12 -info -in server.p12
+
+Verify a private key matches an certificate
+openssl x509 -noout -modulus -in server.crt | openssl md5
+openssl rsa -noout -modulus -in server.key | openssl md5
+openssl req -noout -modulus -in server.csr | openssl md5
+Display all certificates including intermediates
+
+openssl s_client -connect www.paypal.com:443
+
+
+to list all the certificates in keystore
+keytool -list -v -keystore cert.p12 -storepass <password>
+
+
+openssl req -new -newkey rsa:2048 -sha256 -nodes -out server.csr -keyout server.key -subj "/C=US/ST=VA/L=Sterling/O=Virtual Infotech Inc/OU=Virtual Infotech Inc/CN=server"
+# Self Signed
+openssl req -new -sha256 -newkey rsa:2048 -days 1095 -nodes -x509 -keyout server2.key -out server2.crt
+
+An easy and a highly secure way to make sure that a private key belongs to a certain certificate is to run a few OpenSSL commands. And do you know what's the best part is? You can do it on your own system. This way your private remains on your own system and won't get compromised.
+
+Just run these OpenSSL commands to verify your private key:
+
+openssl pkey -in privateKey.key -pubout -outform pem | sha256sum
+openssl x509 -in certificate.crt -pubkey -noout -outform pem | sha256sum
+openssl req -in CSR.csr -pubkey -noout -outform pem | sha256sum
+
+
+Check a stand-alone certificate
+keytool -printcert -v -file mydomain.crt
+Check which certificates are in a Java keystore
+keytool -list -v -keystore keystore.jks
+Check a particular keystore entry using an alias
+keytool -list -v -keystore keystore.jks -alias mydomain
