@@ -1,0 +1,42 @@
+gudalur69
+guinsert the ubuntu iso and install. add 16 gb memory, 50 gb space, 2 cpu
+make it bidirectional by going to general --> advanced
+insert the guest additions from devices on the top
+
+sudo apt-get install build-essential linux-headers-$(uname -r) dkms
+cd /media/chris/VBox_GA
+sudo ./VBoxLinuxAddtions.run
+reboot
+
+do the shared folder
+sudo usermod -G vboxsf -a $USER
+if the above command not executed, the shared folder would not show up, if vboxsf is not
+installed, the above command will not run nor show any error.
+To install vboxsf, do the following below
+lsmod | grep vbox
+
+$ sudo add-apt-repository multiverse
+$ sudo apt update
+$ sudo apt install virtualbox-guest-utils virtualbox-guest-x11
+reboot
+1) doing this makes the file transfer between shared folder and also makes the screen size
+changable and better
+2) in vmware there is no guest additions, but changing the video card memory to 256 mb makes
+the screen size adjustable and better.
+
+sudo apt install docker docker-compose
+sudo usermod -aG docker chris
+sudo systemctl start docker
+sudo systemctl enable docker
+reboot and verify
+
+sudo systemctl stop snapd
+sudo systemctl disable snapd
+
+sudo systemctl stop fwupd
+sudo systemctl disable fwupd
+
+sudo apt install openssh-server -y
+sudo systemctl enable sshd
+sudo apt install openjdk-19-jdk -y
+sudo apt install curl
